@@ -1,29 +1,92 @@
-To run in development mode, you can use the following command:
+
+# Event-Driven Notification Orchestrator
+
+**Recruitment Task for Cleeng**
+
+This is a simple backend service for managing user preferences and processing events with DND (Do Not Disturb) logic.
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/basia1111/Event-Driven-Notification-Orchestrator.git
+cd Event-Driven-Notification-Orchestrator
+````
+
+Inside project folder install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-This will start the development server, watch for changes in your code and automatically reload the application.
+The server will run at `http://localhost:3000`.
 
-To build the project for production, you can use the following command:
+## API Endpoints
 
-```bash
-npm run build
+### Get user preferences
+
+```http
+GET /preferences/:userId
 ```
 
-This will create an optimized build of your application in the `.build` directory.
+### Set user preferences
 
-To start the production server, you can use the following command:
-
-```bash
-npm run start
+```http
+POST /preferences/:userId
 ```
 
-This will start the server using the optimized build created in the previous step.
+**Request body example:**
 
-Remember to install the necessary dependencies before running these commands. You can do this by running:
+```json
+{
+  "dnd": {
+    "start": "12:00",
+    "end": "16:00"
+  },
+  "eventSettings": {
+    "item_shipped": {
+      "enabled": true
+    },
+    "invoice_generated": {
+      "enabled": true
+    }
+  }
+}
+```
+
+### Emit an event
+
+```http
+POST /events
+```
+
+**Request body example:**
+
+```json
+{
+  "eventId": "evt_12345",
+  "userId": "1",
+  "eventType": "item_shipped",
+  "timestamp": "2025-07-28T14:59:00Z"
+}
+```
+
+The server will respond with a decision based on the user preferences and DND settings.
+
+## Running Tests
+
+To run Jest tests:
 
 ```bash
-npm i
+npm test
 ```
+
+This will run unit tests for DND logic checks.
+
