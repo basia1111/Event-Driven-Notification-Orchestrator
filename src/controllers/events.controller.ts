@@ -2,7 +2,7 @@ import { Express } from "express";
 import { z } from "zod";
 import { eventSchema } from "../schemas/eventSchema";
 import { users } from "../storage/userPreferences";
-import { isInDND } from "../utils/isInDNS";
+import { isInDND } from "../utils/isInDND";
 
 export const eventsControllerFactory = (app: Express) => {
   app.post("/events", (req, res) => {
